@@ -1,0 +1,13 @@
+name: Container Image CI
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the container image
+        run: docker build . --file Dockerfile --tag localbuild/testimage:latest
+      - uses: noqcks/xeol-action@v1.0.6
+        with:
+          image: "localbuild/testimage:latest"
+          fail-build: true
